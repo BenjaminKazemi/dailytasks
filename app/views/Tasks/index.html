@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+Tasks:
+<hr/>
+#{list items:taskList, as:'task'}
+    <li>${task.dateStamp} ${task.description} </li>
+#{/list}
