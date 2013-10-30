@@ -1,14 +1,12 @@
 package controllers;
 
 import com.google.gson.Gson;
-import dto.tasks.TaskDto;
 import models.tasks.Task;
 import org.apache.commons.io.IOUtils;
 import play.Logger;
 import play.mvc.Controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class Tasks extends Controller {
@@ -31,7 +29,7 @@ public class Tasks extends Controller {
         String t = new Gson().toJson(task);
         Logger.info( "Creating new Task " + t );
 
-        renderJSON( t );
+        renderJSON(t);
     }
 
     public static void delete( Long id ) {

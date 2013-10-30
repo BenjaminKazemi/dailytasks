@@ -11,7 +11,7 @@ import java.util.Date;
 @Table(name = "task")
 public class Task extends Model {
     @Column(nullable = false)
-    public Date dateStamp;
+    public Date deadline;
 
     @Column(nullable = false)
     public String description;
