@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                                       Tasks.index
+
+# Tasks controller routes
 GET     /tasks                                  Tasks.list
 PUT     /tasks                                  Tasks.create
 DELETE  /tasks/{id}                             Tasks.delete

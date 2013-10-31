@@ -15,12 +15,13 @@
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
-    <script src="popup.js"></script>
+      <script src="jquery.min.js"></script>
+      <script src="popup.js"></script>
   </head>
   <body>
-  <input type="datetime-local" name="dateStamp">
-  <input type="text" size="50" name="description">
-  <button name="save" onclick="alert('clicked');">Save</button>
+  <input type="datetime" id="deadline">
+  <input type="text" size="50" id="description">
+  <button type="button" id="saveTaskBtn">Save</button>
   <hr/>
   </body>
 </html>

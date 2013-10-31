@@ -6,8 +6,9 @@
   "version": "1.0",
 
   "permissions": [
-    "http://fierce-ridge-3179.herokuapp.com/"
+    "http://localhost:9000/"
   ],
+
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"

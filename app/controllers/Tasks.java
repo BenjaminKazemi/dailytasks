@@ -1,6 +1,6 @@
 package controllers;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import models.tasks.Task;
 import org.apache.commons.io.IOUtils;
 import play.Logger;
@@ -17,29 +17,31 @@ public class Tasks extends Controller {
     }
 
     public static void list() {
-        String taskList = new Gson().toJson(Task.findAll());
         Logger.info( "Listing tasks" );
-        renderJSON(taskList);
+        renderJSON(listJson());
     }
 
     public static void create() throws IOException {
-        Task task = new Gson().fromJson(IOUtils.toString(request.body, "UTF-8"), Task.class);
+        Task task = new GsonBuilder().setDateFormat("yyyy-MM-DD'T'HH:mm").create().fromJson(IOUtils.toString(request.body, "UTF-8"), Task.class);
         task.validateAndSave();
 
-        String t = new Gson().toJson(task);
+        String t = new GsonBuilder().setDateFormat("yyyy-MM-DD'T'HH:mm").create().toJson(task);
         Logger.info( "Creating new Task " + t );
 
-        renderJSON(t);
+        renderJSON(listJson());
     }
 
     public static void delete( Long id ) {
         if( Task.delete("id=?", id) > 0 ) {
             Logger.info( "Deleting task.id:" + id );
-            ok();
-        } else {
-            Logger.info( "Task not found for deletion task.id:" + id );
-            notFound( "Task[id:" + id + "] not found." );
+            renderJSON(listJson());
         }
+
+        Logger.info( "Task not found for deletion task.id:" + id );
+        renderJSON(listJson());
     }
 
+    private static synchronized String listJson() {
+        return new GsonBuilder().setDateFormat("yyyy-MM-DD'T'HH:mm").create().toJson(Task.find("FROM Task t ORDER BY t.deadline ASC").fetch(0,15));
+    }
 }
